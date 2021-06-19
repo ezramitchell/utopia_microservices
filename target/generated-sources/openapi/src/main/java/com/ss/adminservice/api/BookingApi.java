@@ -17,7 +17,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.*;
 import java.util.List;
 import java.util.Map;
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2021-06-19T10:58:43.409494-06:00[America/Denver]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2021-06-19T12:52:51.050113-06:00[America/Denver]")
 @Validated
 @Api(value = "booking", description = "the booking API")
 public interface BookingApi {
@@ -32,10 +32,7 @@ public interface BookingApi {
      * @return list of bookings (status code 200)
      *         or Somethings wrong (status code 400)
      */
-    @ApiOperation(value = "Returns all bookings", nickname = "getAllBookings", notes = "", response = Booking.class, responseContainer = "List", authorizations = {
-        
-        @Authorization(value = "basicAuth")
-         }, tags={  })
+    @ApiOperation(value = "Returns all bookings", nickname = "getAllBookings", notes = "", response = Booking.class, responseContainer = "List", tags={  })
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "list of bookings", response = Booking.class, responseContainer = "List"),
         @ApiResponse(code = 400, message = "Somethings wrong") })

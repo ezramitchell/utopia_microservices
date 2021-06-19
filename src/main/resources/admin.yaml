@@ -5,14 +5,7 @@ info:
   description: simple api for interfacing with utopa database
   version: 0.0.1
 
-security:
-  - basicAuth: [ ]
-
 components:
-  securitySchemes:
-    basicAuth:
-      type: http
-      scheme: basic
   schemas:
     User:
       type: object
@@ -36,7 +29,7 @@ components:
     Airport:
       type: object
       properties:
-        iata_id:
+        iataId:
           type: string
         city:
           type: string
@@ -375,6 +368,21 @@ paths:
           description: list of airports
         400:
           description: no airports/failed
+  /airport/{iataId}:
+    delete:
+      operationId: deleteAirport
+      description: Delete airport
+      parameters:
+        - name: iataId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: Delete succeeded
+        400:
+          description: Delete failed
   /route:
     put:
       operationId: addRoute

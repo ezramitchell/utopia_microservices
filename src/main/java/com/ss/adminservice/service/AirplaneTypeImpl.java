@@ -17,17 +17,16 @@ import java.util.Optional;
 
 @Service
 public class AirplaneTypeImpl implements AirplaneTypeApiDelegate {
-    @Override
-    public Optional<NativeWebRequest> getRequest() {
-        return AirplaneTypeApiDelegate.super.getRequest();
-    }
-
     private final AirplaneTypeRepo airplaneTypeRepo;
     private final ModelMapper modelMapper;
-
     public AirplaneTypeImpl(AirplaneTypeRepo airplaneTypeRepo, ModelMapper modelMapper) {
         this.airplaneTypeRepo = airplaneTypeRepo;
         this.modelMapper = modelMapper;
+    }
+
+    @Override
+    public Optional<NativeWebRequest> getRequest() {
+        return AirplaneTypeApiDelegate.super.getRequest();
     }
 
     /**
@@ -41,12 +40,12 @@ public class AirplaneTypeImpl implements AirplaneTypeApiDelegate {
      */
     @Override
     public ResponseEntity<Void> addAirplaneType(AirplaneType airplaneType) {
-        try{
-            if(airplaneType.getId() == null){
+        try {
+            if (airplaneType.getId() == null) {
                 airplaneTypeRepo.save(convertToEntity(airplaneType));
                 return ResponseEntity.ok(null);
             }
-        }catch (Exception ignored){
+        } catch (Exception ignored) {
         }
         return ResponseEntity.badRequest().body(null);
     }
@@ -70,7 +69,7 @@ public class AirplaneTypeImpl implements AirplaneTypeApiDelegate {
         return modelMapper.map(airplaneType, AirplaneTypeEnt.class);
     }
 
-    private AirplaneType convertToDTO(AirplaneTypeEnt airplaneTypeEnt){
+    private AirplaneType convertToDTO(AirplaneTypeEnt airplaneTypeEnt) {
         return modelMapper.map(airplaneTypeEnt, AirplaneType.class);
     }
 }

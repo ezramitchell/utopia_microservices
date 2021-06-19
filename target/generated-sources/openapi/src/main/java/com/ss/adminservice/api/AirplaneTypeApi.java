@@ -17,7 +17,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.*;
 import java.util.List;
 import java.util.Map;
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2021-06-19T10:58:43.409494-06:00[America/Denver]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2021-06-19T12:52:51.050113-06:00[America/Denver]")
 @Validated
 @Api(value = "airplane_type", description = "the airplane_type API")
 public interface AirplaneTypeApi {
@@ -34,10 +34,7 @@ public interface AirplaneTypeApi {
      * @return add successful (status code 200)
      *         or add failed (status code 400)
      */
-    @ApiOperation(value = "", nickname = "addAirplaneType", notes = "add airplanetype", authorizations = {
-        
-        @Authorization(value = "basicAuth")
-         }, tags={  })
+    @ApiOperation(value = "", nickname = "addAirplaneType", notes = "add airplanetype", tags={  })
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "add successful"),
         @ApiResponse(code = 400, message = "add failed") })
@@ -56,10 +53,7 @@ public interface AirplaneTypeApi {
      *
      * @return list of airplane types (status code 200)
      */
-    @ApiOperation(value = "", nickname = "getAllAirplaneTypes", notes = "get all airplane types", response = AirplaneType.class, responseContainer = "List", authorizations = {
-        
-        @Authorization(value = "basicAuth")
-         }, tags={  })
+    @ApiOperation(value = "", nickname = "getAllAirplaneTypes", notes = "get all airplane types", response = AirplaneType.class, responseContainer = "List", tags={  })
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "list of airplane types", response = AirplaneType.class, responseContainer = "List") })
     @GetMapping(

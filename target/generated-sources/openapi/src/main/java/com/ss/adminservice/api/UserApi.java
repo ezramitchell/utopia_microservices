@@ -18,7 +18,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.*;
 import java.util.List;
 import java.util.Map;
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2021-06-19T10:58:43.409494-06:00[America/Denver]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2021-06-19T12:52:51.050113-06:00[America/Denver]")
 @Validated
 @Api(value = "user", description = "the user API")
 public interface UserApi {
@@ -35,10 +35,7 @@ public interface UserApi {
      * @return Add successful (status code 200)
      *         or Add failed (status code 400)
      */
-    @ApiOperation(value = "Added new booking", nickname = "addBooking", notes = "", authorizations = {
-        
-        @Authorization(value = "basicAuth")
-         }, tags={  })
+    @ApiOperation(value = "Added new booking", nickname = "addBooking", notes = "", tags={  })
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "Add successful"),
         @ApiResponse(code = 400, message = "Add failed") })
@@ -58,10 +55,7 @@ public interface UserApi {
      * @return User created (status code 200)
      *         or Delete failed (status code 400)
      */
-    @ApiOperation(value = "Create new user", nickname = "addUser", notes = "", response = User.class, authorizations = {
-        
-        @Authorization(value = "basicAuth")
-         }, tags={  })
+    @ApiOperation(value = "Create new user", nickname = "addUser", notes = "", response = User.class, tags={  })
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "User created", response = User.class),
         @ApiResponse(code = 400, message = "Delete failed") })
@@ -82,10 +76,7 @@ public interface UserApi {
      * @return ok (status code 200)
      *         or Delete failed (status code 400)
      */
-    @ApiOperation(value = "Deletes user at id", nickname = "deleteUser", notes = "", authorizations = {
-        
-        @Authorization(value = "basicAuth")
-         }, tags={  })
+    @ApiOperation(value = "Deletes user at id", nickname = "deleteUser", notes = "", tags={  })
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "ok"),
         @ApiResponse(code = 400, message = "Delete failed") })
@@ -104,10 +95,7 @@ public interface UserApi {
      * @return ok (status code 200)
      *         or No user at id (status code 404)
      */
-    @ApiOperation(value = "Returns user at Id", nickname = "getUser", notes = "", response = User.class, authorizations = {
-        
-        @Authorization(value = "basicAuth")
-         }, tags={  })
+    @ApiOperation(value = "Returns user at Id", nickname = "getUser", notes = "", response = User.class, tags={  })
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "ok", response = User.class),
         @ApiResponse(code = 404, message = "No user at id") })
@@ -127,10 +115,7 @@ public interface UserApi {
      * @return Returns list of users bookings (status code 200)
      *         or No user at id (status code 404)
      */
-    @ApiOperation(value = "Get users bookings", nickname = "getUserBookings", notes = "", response = Booking.class, responseContainer = "List", authorizations = {
-        
-        @Authorization(value = "basicAuth")
-         }, tags={  })
+    @ApiOperation(value = "Get users bookings", nickname = "getUserBookings", notes = "", response = Booking.class, responseContainer = "List", tags={  })
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "Returns list of users bookings", response = Booking.class, responseContainer = "List"),
         @ApiResponse(code = 404, message = "No user at id") })
@@ -151,10 +136,7 @@ public interface UserApi {
      * @return Update successful (status code 200)
      *         or Update failed (status code 400)
      */
-    @ApiOperation(value = "Update booking, booking id necessary", nickname = "updateBooking", notes = "", authorizations = {
-        
-        @Authorization(value = "basicAuth")
-         }, tags={  })
+    @ApiOperation(value = "Update booking, booking id necessary", nickname = "updateBooking", notes = "", tags={  })
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "Update successful"),
         @ApiResponse(code = 400, message = "Update failed") })
@@ -175,10 +157,7 @@ public interface UserApi {
      * @return Update succeeded (status code 200)
      *         or Update failed (status code 400)
      */
-    @ApiOperation(value = "Update user", nickname = "userPost", notes = "Id necessary, any other non null properties will be updated", authorizations = {
-        
-        @Authorization(value = "basicAuth")
-         }, tags={  })
+    @ApiOperation(value = "Update user", nickname = "userPost", notes = "Id necessary, any other non null properties will be updated", tags={  })
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "Update succeeded"),
         @ApiResponse(code = 400, message = "Update failed") })

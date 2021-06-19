@@ -17,7 +17,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.*;
 import java.util.List;
 import java.util.Map;
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2021-06-19T10:58:43.409494-06:00[America/Denver]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2021-06-19T12:52:51.050113-06:00[America/Denver]")
 @Validated
 @Api(value = "airport", description = "the airport API")
 public interface AirportApi {
@@ -33,10 +33,7 @@ public interface AirportApi {
      * @return Add successful (status code 200)
      *         or Add failed (status code 400)
      */
-    @ApiOperation(value = "Add airport", nickname = "addAirport", notes = "", authorizations = {
-        
-        @Authorization(value = "basicAuth")
-         }, tags={  })
+    @ApiOperation(value = "Add airport", nickname = "addAirport", notes = "", tags={  })
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "Add successful"),
         @ApiResponse(code = 400, message = "Add failed") })
@@ -50,15 +47,32 @@ public interface AirportApi {
 
 
     /**
+     * DELETE /airport/{iataId}
+     * Delete airport
+     *
+     * @param iataId  (required)
+     * @return Delete succeeded (status code 200)
+     *         or Delete failed (status code 400)
+     */
+    @ApiOperation(value = "", nickname = "deleteAirport", notes = "Delete airport", tags={  })
+    @ApiResponses(value = { 
+        @ApiResponse(code = 200, message = "Delete succeeded"),
+        @ApiResponse(code = 400, message = "Delete failed") })
+    @DeleteMapping(
+        value = "/airport/{iataId}"
+    )
+    default ResponseEntity<Void> deleteAirport(@ApiParam(value = "",required=true) @PathVariable("iataId") String iataId) {
+        return getDelegate().deleteAirport(iataId);
+    }
+
+
+    /**
      * GET /airport : get All airports
      *
      * @return list of airports (status code 200)
      *         or no airports/failed (status code 400)
      */
-    @ApiOperation(value = "get All airports", nickname = "getAllAirports", notes = "", response = Airport.class, responseContainer = "List", authorizations = {
-        
-        @Authorization(value = "basicAuth")
-         }, tags={  })
+    @ApiOperation(value = "get All airports", nickname = "getAllAirports", notes = "", response = Airport.class, responseContainer = "List", tags={  })
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "list of airports", response = Airport.class, responseContainer = "List"),
         @ApiResponse(code = 400, message = "no airports/failed") })

@@ -16,7 +16,7 @@ import java.util.Optional;
  * A delegate to be called by the {@link AirportApiController}}.
  * Implement this interface with a {@link org.springframework.stereotype.Service} annotated class.
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2021-06-19T10:58:43.409494-06:00[America/Denver]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2021-06-19T12:52:51.050113-06:00[America/Denver]")
 public interface AirportApiDelegate {
 
     default Optional<NativeWebRequest> getRequest() {
@@ -37,6 +37,20 @@ public interface AirportApiDelegate {
     }
 
     /**
+     * DELETE /airport/{iataId}
+     * Delete airport
+     *
+     * @param iataId  (required)
+     * @return Delete succeeded (status code 200)
+     *         or Delete failed (status code 400)
+     * @see AirportApi#deleteAirport
+     */
+    default ResponseEntity<Void> deleteAirport(String iataId) {
+        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+
+    }
+
+    /**
      * GET /airport : get All airports
      *
      * @return list of airports (status code 200)
@@ -47,7 +61,7 @@ public interface AirportApiDelegate {
         getRequest().ifPresent(request -> {
             for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
-                    String exampleString = "{ \"iata_id\" : \"iata_id\", \"city\" : \"city\" }";
+                    String exampleString = "{ \"city\" : \"city\", \"iataId\" : \"iataId\" }";
                     ApiUtil.setExampleResponse(request, "application/json", exampleString);
                     break;
                 }

@@ -17,7 +17,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.*;
 import java.util.List;
 import java.util.Map;
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2021-06-19T10:58:43.409494-06:00[America/Denver]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2021-06-19T12:52:51.050113-06:00[America/Denver]")
 @Validated
 @Api(value = "route", description = "the route API")
 public interface RouteApi {
@@ -33,10 +33,7 @@ public interface RouteApi {
      * @return Add successful (status code 200)
      *         or Add failed (status code 400)
      */
-    @ApiOperation(value = "Add Route", nickname = "addRoute", notes = "", authorizations = {
-        
-        @Authorization(value = "basicAuth")
-         }, tags={  })
+    @ApiOperation(value = "Add Route", nickname = "addRoute", notes = "", tags={  })
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "Add successful"),
         @ApiResponse(code = 400, message = "Add failed") })
@@ -56,10 +53,7 @@ public interface RouteApi {
      * @return delete successful (status code 200)
      *         or delete failed (status code 400)
      */
-    @ApiOperation(value = "delete route", nickname = "deleteRoute", notes = "", authorizations = {
-        
-        @Authorization(value = "basicAuth")
-         }, tags={  })
+    @ApiOperation(value = "delete route", nickname = "deleteRoute", notes = "", tags={  })
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "delete successful"),
         @ApiResponse(code = 400, message = "delete failed") })
@@ -76,10 +70,7 @@ public interface RouteApi {
      *
      * @return list of routes (status code 200)
      */
-    @ApiOperation(value = "get all routes", nickname = "getAllRoutes", notes = "", response = Route.class, authorizations = {
-        
-        @Authorization(value = "basicAuth")
-         }, tags={  })
+    @ApiOperation(value = "get all routes", nickname = "getAllRoutes", notes = "", response = Route.class, tags={  })
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "list of routes", response = Route.class) })
     @GetMapping(
@@ -98,10 +89,7 @@ public interface RouteApi {
      * @return returns route (status code 200)
      *         or route does not exist (status code 404)
      */
-    @ApiOperation(value = "get route at id", nickname = "getRoute", notes = "", response = Route.class, authorizations = {
-        
-        @Authorization(value = "basicAuth")
-         }, tags={  })
+    @ApiOperation(value = "get route at id", nickname = "getRoute", notes = "", response = Route.class, tags={  })
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "returns route", response = Route.class),
         @ApiResponse(code = 404, message = "route does not exist") })

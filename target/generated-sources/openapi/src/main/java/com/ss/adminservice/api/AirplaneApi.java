@@ -17,7 +17,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.*;
 import java.util.List;
 import java.util.Map;
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2021-06-19T10:58:43.409494-06:00[America/Denver]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2021-06-19T12:52:51.050113-06:00[America/Denver]")
 @Validated
 @Api(value = "airplane", description = "the airplane API")
 public interface AirplaneApi {
@@ -34,10 +34,7 @@ public interface AirplaneApi {
      * @return add successful (status code 200)
      *         or add failed (status code 400)
      */
-    @ApiOperation(value = "", nickname = "addAirplane", notes = "add airplane", authorizations = {
-        
-        @Authorization(value = "basicAuth")
-         }, tags={  })
+    @ApiOperation(value = "", nickname = "addAirplane", notes = "add airplane", tags={  })
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "add successful"),
         @ApiResponse(code = 400, message = "add failed") })
@@ -57,10 +54,7 @@ public interface AirplaneApi {
      * @param airplaneId  (required)
      * @return returns airplane (status code 200)
      */
-    @ApiOperation(value = "", nickname = "getAirplane", notes = "get airplane at id", response = Airplane.class, authorizations = {
-        
-        @Authorization(value = "basicAuth")
-         }, tags={  })
+    @ApiOperation(value = "", nickname = "getAirplane", notes = "get airplane at id", response = Airplane.class, tags={  })
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "returns airplane", response = Airplane.class) })
     @GetMapping(
@@ -78,10 +72,7 @@ public interface AirplaneApi {
      *
      * @return list of airplanes (status code 200)
      */
-    @ApiOperation(value = "", nickname = "getAllAirplanes", notes = "get all airplanes", response = Airplane.class, responseContainer = "List", authorizations = {
-        
-        @Authorization(value = "basicAuth")
-         }, tags={  })
+    @ApiOperation(value = "", nickname = "getAllAirplanes", notes = "get all airplanes", response = Airplane.class, responseContainer = "List", tags={  })
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "list of airplanes", response = Airplane.class, responseContainer = "List") })
     @GetMapping(
@@ -102,10 +93,7 @@ public interface AirplaneApi {
      * @return update succesful (status code 200)
      *         or update failed (status code 400)
      */
-    @ApiOperation(value = "", nickname = "updateAirplane", notes = "update airplane", authorizations = {
-        
-        @Authorization(value = "basicAuth")
-         }, tags={  })
+    @ApiOperation(value = "", nickname = "updateAirplane", notes = "update airplane", tags={  })
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "update succesful"),
         @ApiResponse(code = 400, message = "update failed") })

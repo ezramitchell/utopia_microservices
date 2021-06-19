@@ -16,7 +16,7 @@ import java.util.Optional;
  * A delegate to be called by the {@link RouteApiController}}.
  * Implement this interface with a {@link org.springframework.stereotype.Service} annotated class.
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2021-06-19T10:58:43.409494-06:00[America/Denver]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2021-06-19T12:52:51.050113-06:00[America/Denver]")
 public interface RouteApiDelegate {
 
     default Optional<NativeWebRequest> getRequest() {
@@ -59,7 +59,7 @@ public interface RouteApiDelegate {
         getRequest().ifPresent(request -> {
             for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
-                    String exampleString = "{ \"originAirport\" : { \"iata_id\" : \"iata_id\", \"city\" : \"city\" }, \"id\" : \"id\", \"destinationAirport\" : { \"iata_id\" : \"iata_id\", \"city\" : \"city\" } }";
+                    String exampleString = "{ \"originAirport\" : { \"city\" : \"city\", \"iataId\" : \"iataId\" }, \"id\" : \"id\", \"destinationAirport\" : { \"city\" : \"city\", \"iataId\" : \"iataId\" } }";
                     ApiUtil.setExampleResponse(request, "application/json", exampleString);
                     break;
                 }
@@ -81,7 +81,7 @@ public interface RouteApiDelegate {
         getRequest().ifPresent(request -> {
             for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
-                    String exampleString = "{ \"originAirport\" : { \"iata_id\" : \"iata_id\", \"city\" : \"city\" }, \"id\" : \"id\", \"destinationAirport\" : { \"iata_id\" : \"iata_id\", \"city\" : \"city\" } }";
+                    String exampleString = "{ \"originAirport\" : { \"city\" : \"city\", \"iataId\" : \"iataId\" }, \"id\" : \"id\", \"destinationAirport\" : { \"city\" : \"city\", \"iataId\" : \"iataId\" } }";
                     ApiUtil.setExampleResponse(request, "application/json", exampleString);
                     break;
                 }

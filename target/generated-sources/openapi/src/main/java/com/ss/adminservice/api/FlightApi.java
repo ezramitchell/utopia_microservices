@@ -17,7 +17,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.*;
 import java.util.List;
 import java.util.Map;
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2021-06-19T10:58:43.409494-06:00[America/Denver]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2021-06-19T12:52:51.050113-06:00[America/Denver]")
 @Validated
 @Api(value = "flight", description = "the flight API")
 public interface FlightApi {
@@ -33,10 +33,7 @@ public interface FlightApi {
      * @return Add successful (status code 200)
      *         or Add failed (status code 400)
      */
-    @ApiOperation(value = "Add flight, id unnecessary", nickname = "addFlight", notes = "", authorizations = {
-        
-        @Authorization(value = "basicAuth")
-         }, tags={  })
+    @ApiOperation(value = "Add flight, id unnecessary", nickname = "addFlight", notes = "", tags={  })
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "Add successful"),
         @ApiResponse(code = 400, message = "Add failed") })
@@ -56,10 +53,7 @@ public interface FlightApi {
      * @return Delete successful (status code 200)
      *         or Delete failed (status code 400)
      */
-    @ApiOperation(value = "Delete flight at id", nickname = "deleteFlight", notes = "", authorizations = {
-        
-        @Authorization(value = "basicAuth")
-         }, tags={  })
+    @ApiOperation(value = "Delete flight at id", nickname = "deleteFlight", notes = "", tags={  })
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "Delete successful"),
         @ApiResponse(code = 400, message = "Delete failed") })
@@ -78,10 +72,7 @@ public interface FlightApi {
      * @return Read successful (status code 200)
      *         or How did you mess this up (status code 400)
      */
-    @ApiOperation(value = "Get all flights", nickname = "getAllFlights", notes = "", response = Flight.class, responseContainer = "List", authorizations = {
-        
-        @Authorization(value = "basicAuth")
-         }, tags={  })
+    @ApiOperation(value = "Get all flights", nickname = "getAllFlights", notes = "", response = Flight.class, responseContainer = "List", tags={  })
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "Read successful", response = Flight.class, responseContainer = "List"),
         @ApiResponse(code = 400, message = "How did you mess this up") })
@@ -101,10 +92,7 @@ public interface FlightApi {
      * @return Read successful (status code 200)
      *         or How did you mess this up (status code 400)
      */
-    @ApiOperation(value = "Get flight at id", nickname = "getFlight", notes = "", response = Flight.class, responseContainer = "List", authorizations = {
-        
-        @Authorization(value = "basicAuth")
-         }, tags={  })
+    @ApiOperation(value = "Get flight at id", nickname = "getFlight", notes = "", response = Flight.class, responseContainer = "List", tags={  })
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "Read successful", response = Flight.class, responseContainer = "List"),
         @ApiResponse(code = 400, message = "How did you mess this up") })
@@ -125,10 +113,7 @@ public interface FlightApi {
      * @return Update successful (status code 200)
      *         or Update failed (status code 400)
      */
-    @ApiOperation(value = "Update flight at id", nickname = "updateFlight", notes = "", authorizations = {
-        
-        @Authorization(value = "basicAuth")
-         }, tags={  })
+    @ApiOperation(value = "Update flight at id", nickname = "updateFlight", notes = "", tags={  })
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "Update successful"),
         @ApiResponse(code = 400, message = "Update failed") })

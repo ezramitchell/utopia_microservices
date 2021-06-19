@@ -4,6 +4,7 @@ import com.ss.adminservice.api.AirplaneApi;
 import com.ss.adminservice.api.AirplaneApiDelegate;
 import com.ss.adminservice.dto.Airplane;
 import com.ss.adminservice.entity.AirplaneEnt;
+import com.ss.adminservice.entity.AirplaneTypeEnt;
 import com.ss.adminservice.repo.AirplaneRepo;
 import org.modelmapper.Conditions;
 import org.modelmapper.ModelMapper;
@@ -22,18 +23,17 @@ import java.util.UUID;
 
 @Service
 public class AirplaneImpl implements AirplaneApiDelegate {
+    private final AirplaneRepo airplaneRepo;
+    private final ModelMapper modelMapper;
+
+    public AirplaneImpl(AirplaneRepo airplaneRepo, ModelMapper modelMapper) {
+        this.airplaneRepo = airplaneRepo;
+        this.modelMapper = modelMapper;
+    }
+
     @Override
     public Optional<NativeWebRequest> getRequest() {
         return AirplaneApiDelegate.super.getRequest();
-    }
-
-    private final AirplaneRepo airplaneRepo;
-
-    private final ModelMapper modelMapper;
-
-    public AirplaneImpl(AirplaneRepo airplaneRepo, ModelMapper modelMapper){
-        this.airplaneRepo = airplaneRepo;
-        this.modelMapper = modelMapper;
     }
 
     /**
@@ -47,12 +47,12 @@ public class AirplaneImpl implements AirplaneApiDelegate {
      */
     @Override
     public ResponseEntity<Void> addAirplane(Airplane airplane) {
-        try{
-            if(airplane.getId() == null) {
+        try {
+            if (airplane.getId() == null) {
                 airplaneRepo.save(convertToEntity(airplane));
                 return ResponseEntity.ok(null);
             }
-        }catch (Exception ignored){
+        } catch (Exception ignored) {
         }
         return ResponseEntity.badRequest().body(null);
     }
@@ -100,7 +100,7 @@ public class AirplaneImpl implements AirplaneApiDelegate {
     @Transactional(isolation = Isolation.REPEATABLE_READ, propagation = Propagation.NESTED)
     public ResponseEntity<Void> updateAirplane(String airplaneId, Airplane airplane) {
         Optional<AirplaneEnt> ent = airplaneRepo.findById(UUID.fromString(airplaneId));
-        if(ent.isPresent()){
+        if (ent.isPresent()) {
             modelMapper.getConfiguration().setPropertyCondition(Conditions.isNotNull());
             airplane.setId(null);
             modelMapper.map(ent, convertToEntity(airplane));
@@ -109,12 +109,14 @@ public class AirplaneImpl implements AirplaneApiDelegate {
     }
 
 
-
     private AirplaneEnt convertToEntity(Airplane airplane) {
-        return modelMapper.map(airplane, AirplaneEnt.class);
+        AirplaneEnt ent = modelMapper.map(airplane, AirplaneEnt.class);
+        ent.setAirplaneType(new AirplaneTypeEnt()
+                .setId(UUID.fromString(airplane.getAirplaneType().getId())));
+        return ent;
     }
 
-    private Airplane convertToDTO(AirplaneEnt airplaneEnt){
+    private Airplane convertToDTO(AirplaneEnt airplaneEnt) {
         return modelMapper.map(airplaneEnt, Airplane.class);
     }
 

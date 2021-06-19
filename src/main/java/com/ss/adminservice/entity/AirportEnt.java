@@ -9,23 +9,24 @@ import javax.persistence.Table;
 @Table(name = "airport")
 public class AirportEnt {
     @Id
-    private String iata_id;
+    @Column(name = "iata_id")
+    private String iataId;
     @Column(nullable = false)
     private String city;
 
-    public String getIata_id() {
-        return iata_id;
+    public String getIataId() {
+        return iataId;
     }
 
     public AirportEnt(){}
 
-    public AirportEnt(String iata_id, String city){
-        this.iata_id = iata_id;
+    public AirportEnt(String iataId, String city){
+        this.iataId = iataId;
         this.city = city;
     }
 
-    public AirportEnt setIata_id(String iata_id) {
-        this.iata_id = iata_id;
+    public AirportEnt setIataId(String iata_id) {
+        this.iataId = iata_id;
         return this;
     }
 

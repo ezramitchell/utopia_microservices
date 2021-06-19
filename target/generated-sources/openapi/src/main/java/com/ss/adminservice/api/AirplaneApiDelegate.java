@@ -16,7 +16,7 @@ import java.util.Optional;
  * A delegate to be called by the {@link AirplaneApiController}}.
  * Implement this interface with a {@link org.springframework.stereotype.Service} annotated class.
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2021-06-19T10:58:43.409494-06:00[America/Denver]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2021-06-19T12:52:51.050113-06:00[America/Denver]")
 public interface AirplaneApiDelegate {
 
     default Optional<NativeWebRequest> getRequest() {
