@@ -47,7 +47,7 @@ public class UserEnt {
         return userRole;
     }
 
-    public UserEnt setString(String userRole) {
+    public UserEnt setUserRole(String userRole) {
         this.userRole = userRole;
         return this;
     }

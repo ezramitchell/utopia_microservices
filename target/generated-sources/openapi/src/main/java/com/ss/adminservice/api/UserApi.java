@@ -18,7 +18,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.*;
 import java.util.List;
 import java.util.Map;
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2021-06-19T22:17:56.090082400-06:00[America/Denver]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2021-06-20T15:45:31.821814900-06:00[America/Denver]")
 @Validated
 @Api(value = "user", description = "the user API")
 public interface UserApi {
@@ -104,7 +104,7 @@ public interface UserApi {
         value = "/user/{userId}",
         produces = { "application/json" }
     )
-    default ResponseEntity<User> getUser(@ApiParam(value = "",required=true) @PathVariable("userId") Integer userId) {
+    default ResponseEntity<User> getUser(@ApiParam(value = "",required=true) @PathVariable("userId") String userId) {
         return getDelegate().getUser(userId);
     }
 
@@ -145,7 +145,7 @@ public interface UserApi {
         value = "/user/{userId}/booking",
         consumes = { "application/json" }
     )
-    default ResponseEntity<Void> updateBooking(@ApiParam(value = "",required=true) @PathVariable("userId") Integer userId,@ApiParam(value = ""  )  @Valid @RequestBody(required = false) Booking booking) {
+    default ResponseEntity<Void> updateBooking(@ApiParam(value = "",required=true) @PathVariable("userId") String userId,@ApiParam(value = ""  )  @Valid @RequestBody(required = false) Booking booking) {
         return getDelegate().updateBooking(userId, booking);
     }
 

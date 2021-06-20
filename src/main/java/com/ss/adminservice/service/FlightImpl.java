@@ -42,7 +42,7 @@ public class FlightImpl implements FlightApiDelegate {
      */
     @Override
     public ResponseEntity<Flight> addFlight(Flight flight) {
-        if (flightRepo.existsById(UUID.fromString(flight.getId()))) return ResponseEntity.badRequest().body(null);
+        if ( flight.getId() != null && flightRepo.existsById(UUID.fromString(flight.getId()))) return ResponseEntity.badRequest().body(null);
         try {
             FlightEnt newFlight = flightRepo.save(convertToEntity(flight));
             if (newFlight.getId() == null) return ResponseEntity.badRequest().body(null);
@@ -145,9 +145,12 @@ public class FlightImpl implements FlightApiDelegate {
 
     private FlightEnt convertToEntity(Flight flight) {
         FlightEnt flightEnt = modelMapper.map(flight, FlightEnt.class);
-        flightEnt.setAirplane(new AirplaneEnt().setId(UUID.fromString(flight.getAirplane().getId())));
-        flightEnt.setRoute(new RouteEnt().setId(UUID.fromString(flight.getRoute().getId())));
-        flightEnt.setDepartureTime(flight.getDepartureTime().atZoneSameInstant(ZoneId.of("UTC")));
+        if (flight.getAirplane() != null)
+            flightEnt.setAirplane(new AirplaneEnt().setId(UUID.fromString(flight.getAirplane().getId())));
+        if (flight.getRoute() != null)
+            flightEnt.setRoute(new RouteEnt().setId(UUID.fromString(flight.getRoute().getId())));
+        if (flight.getDepartureTime() != null)
+            flightEnt.setDepartureTime(flight.getDepartureTime().atZoneSameInstant(ZoneId.of("UTC")));
         return flightEnt;
     }
 }

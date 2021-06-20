@@ -24,7 +24,8 @@ public class ApplicationConfig {
             AirplaneTypeRepo airplaneTypeRepo,
             AirportRepo airportRepo,
             FlightRepo flightRepo,
-            RouteRepo routeRepo
+            RouteRepo routeRepo,
+            UserRepo userRepo
     ) {
         return args -> {
             //initialize data
@@ -58,6 +59,16 @@ public class ApplicationConfig {
                         .setDepartureTime(LocalDateTime.now().atZone(ZoneId.of("UTC")))
                         .setReservedSeats(40)
                         .setSeatPrice(40.53f));
+            }
+            //add sample user
+            if(userRepo.findByEmail("sample").isEmpty()){
+                userRepo.save(new UserEnt()
+                .setEmail("sample")
+                .setFirstName("name")
+                .setLastName("last")
+                .setUsername("traveler")
+                .setPassword("password")
+                .setPhone("phone"));
             }
         };
     }

@@ -46,9 +46,27 @@ class FlightImplTest {
         //sample flight for other methods
         Flight flight = getResponse.getBody()[0];
 
-        //delete sample flight
+        //update flight
+        flight.setReservedSeats(69);
+
+        headers.clear();
+        headers.add("Content-Type", "application/json");
+        HttpEntity<Flight> updateEnt = new HttpEntity<>(flight, headers);
+        ResponseEntity<Flight> updateResponse = restTemplate.exchange(
+                getUrl("/flight/" + flight.getId()), HttpMethod.POST, updateEnt, Flight.class);
+
+        //check update
         headers.clear();
         HttpEntity<String> entity = new HttpEntity<>("", headers);
+        ResponseEntity<Flight> searchResponse = restTemplate.exchange(
+                getUrl("/flight/" + flight.getId()), HttpMethod.GET, entity, Flight.class
+        );
+        assertEquals(flight, searchResponse.getBody());
+
+
+        //delete sample flight
+        headers.clear();
+        entity = new HttpEntity<>("", headers);
         ResponseEntity<String> deleteResponse = restTemplate.exchange(
                 getUrl("/flight/" + flight.getId()), HttpMethod.DELETE, entity, String.class
         );
@@ -57,7 +75,7 @@ class FlightImplTest {
         //verify flight is deleted
         headers.clear();
         entity = new HttpEntity<>("", headers);
-        ResponseEntity<Flight> searchResponse = restTemplate.exchange(
+        searchResponse = restTemplate.exchange(
                 getUrl("/flight/" + flight.getId()), HttpMethod.GET, entity, Flight.class
         );
         assertEquals(searchResponse.getStatusCode(), HttpStatus.BAD_REQUEST);

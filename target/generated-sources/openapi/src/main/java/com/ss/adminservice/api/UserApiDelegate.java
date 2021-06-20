@@ -17,7 +17,7 @@ import java.util.Optional;
  * A delegate to be called by the {@link UserApiController}}.
  * Implement this interface with a {@link org.springframework.stereotype.Service} annotated class.
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2021-06-19T22:17:56.090082400-06:00[America/Denver]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2021-06-20T15:45:31.821814900-06:00[America/Denver]")
 public interface UserApiDelegate {
 
     default Optional<NativeWebRequest> getRequest() {
@@ -38,7 +38,7 @@ public interface UserApiDelegate {
         getRequest().ifPresent(request -> {
             for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
-                    String exampleString = "{ \"confirmationCode\" : \"confirmationCode\", \"flight\" : { \"departureTime\" : \"2000-01-23T04:56:07.000+00:00\", \"reservedSeats\" : 6, \"route\" : { \"originAirport\" : { \"city\" : \"city\", \"iataId\" : \"iataId\" }, \"id\" : \"id\", \"destinationAirport\" : { \"city\" : \"city\", \"iataId\" : \"iataId\" } }, \"airplane\" : { \"airplaneType\" : { \"maxCapacity\" : 0, \"id\" : \"id\" }, \"id\" : \"id\" }, \"id\" : \"id\", \"seatPrice\" : 1.4658129 }, \"passenger\" : { \"firstName\" : \"firstName\", \"lastName\" : \"lastName\", \"address\" : \"address\", \"gender\" : \"gender\" }, \"active\" : true, \"payment\" : { \"stripeId\" : \"stripeId\", \"refunded\" : true }, \"id\" : \"id\" }";
+                    String exampleString = "{ \"confirmationCode\" : \"confirmationCode\", \"flight\" : { \"departureTime\" : \"2000-01-23T04:56:07.000+00:00\", \"reservedSeats\" : 6, \"route\" : { \"originAirport\" : { \"city\" : \"city\", \"iataId\" : \"iataId\" }, \"id\" : \"id\", \"destinationAirport\" : { \"city\" : \"city\", \"iataId\" : \"iataId\" } }, \"airplane\" : { \"airplaneType\" : { \"maxCapacity\" : 0, \"id\" : \"id\" }, \"id\" : \"id\" }, \"id\" : \"id\", \"seatPrice\" : 1.4658129 }, \"passenger\" : { \"firstName\" : \"firstName\", \"lastName\" : \"lastName\", \"address\" : \"address\", \"gender\" : \"gender\" }, \"active\" : true, \"payment\" : { \"stripeId\" : \"stripeId\", \"refunded\" : true }, \"id\" : \"id\", \"user\" : { \"lastName\" : \"lastName\", \"firstName\" : \"firstName\", \"password\" : \"password\", \"phone\" : \"phone\", \"id\" : \"id\", \"userRole\" : \"userRole\", \"username\" : \"username\" } }";
                     ApiUtil.setExampleResponse(request, "application/json", exampleString);
                     break;
                 }
@@ -91,7 +91,7 @@ public interface UserApiDelegate {
      *         or No user at id (status code 404)
      * @see UserApi#getUser
      */
-    default ResponseEntity<User> getUser(Integer userId) {
+    default ResponseEntity<User> getUser(String userId) {
         getRequest().ifPresent(request -> {
             for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
@@ -117,7 +117,7 @@ public interface UserApiDelegate {
         getRequest().ifPresent(request -> {
             for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
-                    String exampleString = "{ \"confirmationCode\" : \"confirmationCode\", \"flight\" : { \"departureTime\" : \"2000-01-23T04:56:07.000+00:00\", \"reservedSeats\" : 6, \"route\" : { \"originAirport\" : { \"city\" : \"city\", \"iataId\" : \"iataId\" }, \"id\" : \"id\", \"destinationAirport\" : { \"city\" : \"city\", \"iataId\" : \"iataId\" } }, \"airplane\" : { \"airplaneType\" : { \"maxCapacity\" : 0, \"id\" : \"id\" }, \"id\" : \"id\" }, \"id\" : \"id\", \"seatPrice\" : 1.4658129 }, \"passenger\" : { \"firstName\" : \"firstName\", \"lastName\" : \"lastName\", \"address\" : \"address\", \"gender\" : \"gender\" }, \"active\" : true, \"payment\" : { \"stripeId\" : \"stripeId\", \"refunded\" : true }, \"id\" : \"id\" }";
+                    String exampleString = "{ \"confirmationCode\" : \"confirmationCode\", \"flight\" : { \"departureTime\" : \"2000-01-23T04:56:07.000+00:00\", \"reservedSeats\" : 6, \"route\" : { \"originAirport\" : { \"city\" : \"city\", \"iataId\" : \"iataId\" }, \"id\" : \"id\", \"destinationAirport\" : { \"city\" : \"city\", \"iataId\" : \"iataId\" } }, \"airplane\" : { \"airplaneType\" : { \"maxCapacity\" : 0, \"id\" : \"id\" }, \"id\" : \"id\" }, \"id\" : \"id\", \"seatPrice\" : 1.4658129 }, \"passenger\" : { \"firstName\" : \"firstName\", \"lastName\" : \"lastName\", \"address\" : \"address\", \"gender\" : \"gender\" }, \"active\" : true, \"payment\" : { \"stripeId\" : \"stripeId\", \"refunded\" : true }, \"id\" : \"id\", \"user\" : { \"lastName\" : \"lastName\", \"firstName\" : \"firstName\", \"password\" : \"password\", \"phone\" : \"phone\", \"id\" : \"id\", \"userRole\" : \"userRole\", \"username\" : \"username\" } }";
                     ApiUtil.setExampleResponse(request, "application/json", exampleString);
                     break;
                 }
@@ -136,7 +136,7 @@ public interface UserApiDelegate {
      *         or Update failed (status code 400)
      * @see UserApi#updateBooking
      */
-    default ResponseEntity<Void> updateBooking(Integer userId,
+    default ResponseEntity<Void> updateBooking(String userId,
         Booking booking) {
         return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
 

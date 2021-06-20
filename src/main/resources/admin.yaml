@@ -84,6 +84,8 @@ components:
           $ref: '#/components/schemas/BookingPayment'
         flight:
           $ref: '#/components/schemas/Flight'
+        user:
+          $ref: '#/components/schemas/User'
     Route:
       type: object
       properties:
@@ -123,7 +125,7 @@ paths:
           in: path
           required: true
           schema:
-            type: integer
+            type: string
       responses:
         200:
           description: ok
@@ -231,7 +233,7 @@ paths:
           in: path
           required: true
           schema:
-            type: integer
+            type: string
       requestBody:
         content:
           application/json:

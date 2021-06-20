@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.ss.adminservice.dto.BookingPayment;
 import com.ss.adminservice.dto.Flight;
 import com.ss.adminservice.dto.Passenger;
+import com.ss.adminservice.dto.User;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import org.openapitools.jackson.nullable.JsonNullable;
@@ -15,7 +16,7 @@ import javax.validation.constraints.*;
 /**
  * Booking
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2021-06-19T22:17:56.090082400-06:00[America/Denver]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2021-06-20T15:45:31.821814900-06:00[America/Denver]")
 public class Booking   {
   @JsonProperty("id")
   private String id;
@@ -34,6 +35,9 @@ public class Booking   {
 
   @JsonProperty("flight")
   private Flight flight;
+
+  @JsonProperty("user")
+  private User user;
 
   public Booking id(String id) {
     this.id = id;
@@ -158,6 +162,27 @@ public class Booking   {
     this.flight = flight;
   }
 
+  public Booking user(User user) {
+    this.user = user;
+    return this;
+  }
+
+  /**
+   * Get user
+   * @return user
+  */
+  @ApiModelProperty(value = "")
+
+  @Valid
+
+  public User getUser() {
+    return user;
+  }
+
+  public void setUser(User user) {
+    this.user = user;
+  }
+
 
   @Override
   public boolean equals(Object o) {
@@ -173,12 +198,13 @@ public class Booking   {
         Objects.equals(this.confirmationCode, booking.confirmationCode) &&
         Objects.equals(this.passenger, booking.passenger) &&
         Objects.equals(this.payment, booking.payment) &&
-        Objects.equals(this.flight, booking.flight);
+        Objects.equals(this.flight, booking.flight) &&
+        Objects.equals(this.user, booking.user);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, active, confirmationCode, passenger, payment, flight);
+    return Objects.hash(id, active, confirmationCode, passenger, payment, flight, user);
   }
 
   @Override
@@ -192,6 +218,7 @@ public class Booking   {
     sb.append("    passenger: ").append(toIndentedString(passenger)).append("\n");
     sb.append("    payment: ").append(toIndentedString(payment)).append("\n");
     sb.append("    flight: ").append(toIndentedString(flight)).append("\n");
+    sb.append("    user: ").append(toIndentedString(user)).append("\n");
     sb.append("}");
     return sb.toString();
   }
