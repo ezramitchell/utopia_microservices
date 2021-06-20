@@ -121,10 +121,11 @@ public class AirplaneImpl implements AirplaneApiDelegate {
      */
     @Override
     public ResponseEntity<Void> deleteAirplane(String airplaneId) {
-        try{
+        try {
             airplaneRepo.deleteById(UUID.fromString(airplaneId));
             return ResponseEntity.ok(null);
-        } catch (Exception ignored){}
+        } catch (Exception ignored) {
+        }
         return ResponseEntity.badRequest().body(null);
     }
 

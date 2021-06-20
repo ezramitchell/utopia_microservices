@@ -17,7 +17,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.*;
 import java.util.List;
 import java.util.Map;
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2021-06-19T20:36:03.845684600-06:00[America/Denver]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2021-06-19T22:17:56.090082400-06:00[America/Denver]")
 @Validated
 @Api(value = "flight", description = "the flight API")
 public interface FlightApi {
@@ -69,7 +69,6 @@ public interface FlightApi {
     /**
      * GET /flight : Get all flights
      *
-     * @param flightId  (required)
      * @return Read successful (status code 200)
      *         or How did you mess this up (status code 400)
      */
@@ -81,8 +80,8 @@ public interface FlightApi {
         value = "/flight",
         produces = { "application/json" }
     )
-    default ResponseEntity<List<Flight>> getAllFlights(@ApiParam(value = "",required=true) @PathVariable("flightId") String flightId) {
-        return getDelegate().getAllFlights(flightId);
+    default ResponseEntity<List<Flight>> getAllFlights() {
+        return getDelegate().getAllFlights();
     }
 
 

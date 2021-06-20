@@ -1,5 +1,6 @@
 package com.ss.adminservice.service;
 
+import com.ss.adminservice.dto.Airplane;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -39,22 +40,20 @@ class AirplaneImplTest {
 
     @Test
     void addType() {
+        //add type
         headers.clear();
         headers.add("Content-Type", "application/json");
         HttpEntity<String> entity = new HttpEntity<>(airplaneType, headers);
-
-        ResponseEntity<String> response = restTemplate.exchange(
-                getUrl("/airplane"), HttpMethod.PUT, entity, String.class);
-
+        ResponseEntity<Airplane> response = restTemplate.exchange(
+                getUrl("/airplane"), HttpMethod.PUT, entity, Airplane.class);
         assertEquals(response.getStatusCode(), HttpStatus.OK);
+        Airplane type = response.getBody();
 
-//        entity = new HttpEntity<>(airplaneType, headers);
-//
-//        response = restTemplate.exchange(
-//                getUrl("/airplane/"), HttpMethod.DELETE, entity, String.class);
-//
-//        assertEquals(response.getStatusCode(), HttpStatus.OK);
-        //TODO add return value to add methods
+        //delete type
+        entity = new HttpEntity<>(airplaneType, headers);
+        ResponseEntity<String> delResponse = restTemplate.exchange(
+                getUrl("/airplane/" + Objects.requireNonNull(type).getId()), HttpMethod.DELETE, entity, String.class);
+        assertEquals(delResponse.getStatusCode(), HttpStatus.OK);
     }
 
     @Test

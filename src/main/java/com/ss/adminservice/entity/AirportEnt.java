@@ -14,15 +14,16 @@ public class AirportEnt {
     @Column(nullable = false)
     private String city;
 
-    public String getIataId() {
-        return iataId;
+    public AirportEnt() {
     }
 
-    public AirportEnt(){}
-
-    public AirportEnt(String iataId, String city){
+    public AirportEnt(String iataId, String city) {
         this.iataId = iataId;
         this.city = city;
+    }
+
+    public String getIataId() {
+        return iataId;
     }
 
     public AirportEnt setIataId(String iata_id) {

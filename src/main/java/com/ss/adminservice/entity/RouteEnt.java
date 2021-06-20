@@ -11,7 +11,7 @@ public class RouteEnt {
     @Id
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
-    @org.hibernate.annotations.Type(type="org.hibernate.type.UUIDCharType")
+    @org.hibernate.annotations.Type(type = "org.hibernate.type.UUIDCharType")
     private UUID id;
     @JoinColumn(nullable = false)
     @ManyToOne(optional = false, targetEntity = AirportEnt.class, fetch = FetchType.EAGER)

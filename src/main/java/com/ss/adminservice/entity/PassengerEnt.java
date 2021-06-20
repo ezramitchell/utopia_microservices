@@ -16,7 +16,6 @@ public class PassengerEnt {
     private String address;
 
 
-
     public String getFirstName() {
         return firstName;
     }

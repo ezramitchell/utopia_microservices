@@ -19,6 +19,7 @@ import java.util.Optional;
 public class AirplaneTypeImpl implements AirplaneTypeApiDelegate {
     private final AirplaneTypeRepo airplaneTypeRepo;
     private final ModelMapper modelMapper;
+
     public AirplaneTypeImpl(AirplaneTypeRepo airplaneTypeRepo, ModelMapper modelMapper) {
         this.airplaneTypeRepo = airplaneTypeRepo;
         this.modelMapper = modelMapper;
@@ -49,6 +50,7 @@ public class AirplaneTypeImpl implements AirplaneTypeApiDelegate {
         }
         return ResponseEntity.badRequest().body(null);
     }
+
 
     /**
      * GET /airplane_type

@@ -10,7 +10,7 @@ import java.util.UUID;
 public class BookingEnt {
     @Id
     @GeneratedValue(generator = "UUID")
-    @org.hibernate.annotations.Type(type="org.hibernate.type.UUIDCharType")
+    @org.hibernate.annotations.Type(type = "org.hibernate.type.UUIDCharType")
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
     private UUID id;
     @Column(nullable = false)
@@ -29,6 +29,11 @@ public class BookingEnt {
 
     public PassengerEnt getPassenger() {
         return passenger;
+    }
+
+    public BookingEnt setPassenger(PassengerEnt passenger) {
+        this.passenger = passenger;
+        return this;
     }
 
     public UUID getId() {
@@ -55,11 +60,6 @@ public class BookingEnt {
 
     public BookingEnt setConfirmationCode(String confirmationCode) {
         this.confirmationCode = confirmationCode;
-        return this;
-    }
-
-    public BookingEnt setPassenger(PassengerEnt passenger) {
-        this.passenger = passenger;
         return this;
     }
 

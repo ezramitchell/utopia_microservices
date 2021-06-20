@@ -1,8 +1,11 @@
 package com.ss.adminservice.service;
 
 
+import com.ss.adminservice.dto.Flight;
+import com.ss.adminservice.repo.FlightRepo;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
@@ -19,29 +22,63 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class FlightImplTest {
 
     TestRestTemplate restTemplate;
-    String flight;
     HttpHeaders headers;
+    @Autowired
+    FlightRepo flightRepo;
     @LocalServerPort
     private int port;
 
 
     public FlightImplTest() {
-        flight = """
-               "id": null,
-               "departure_time"
-               """;
         restTemplate = new TestRestTemplate();
         headers = new HttpHeaders();
     }
 
     @Test
     void addFlight() {
+        //get list of all flights
+        headers.clear();
+        ResponseEntity<Flight[]> getResponse =
+                restTemplate.getForEntity(getUrl("/flight"), Flight[].class);
+
+        assertTrue(Objects.requireNonNull(getResponse.getBody()).length > 0);
+
+        //sample flight for other methods
+        Flight flight = getResponse.getBody()[0];
+
+        //delete sample flight
+        headers.clear();
+        HttpEntity<String> entity = new HttpEntity<>("", headers);
+        ResponseEntity<String> deleteResponse = restTemplate.exchange(
+                getUrl("/flight/" + flight.getId()), HttpMethod.DELETE, entity, String.class
+        );
+        assertEquals(deleteResponse.getStatusCode(), HttpStatus.OK);
+
+        //verify flight is deleted
+        headers.clear();
+        entity = new HttpEntity<>("", headers);
+        ResponseEntity<Flight> searchResponse = restTemplate.exchange(
+                getUrl("/flight/" + flight.getId()), HttpMethod.GET, entity, Flight.class
+        );
+        assertEquals(searchResponse.getStatusCode(), HttpStatus.BAD_REQUEST);
+
+        //add flight
         headers.clear();
         headers.add("Content-Type", "application/json");
-        HttpEntity<String> entity = new HttpEntity<>(flight, headers);
-        ResponseEntity<String> response = restTemplate.exchange(
-                getUrl("/flight"), HttpMethod.PUT, entity, String.class);
-        assertEquals(response.getStatusCode(), HttpStatus.BAD_REQUEST);
+        HttpEntity<Flight> fEntity = new HttpEntity<>(flight, headers);
+        ResponseEntity<Flight> addResponse = restTemplate.exchange(
+                getUrl("/flight"), HttpMethod.PUT, fEntity, Flight.class);
+        assertEquals(getResponse.getStatusCode(), HttpStatus.OK);
+
+        //search flight again
+        headers.clear();
+        entity = new HttpEntity<>("", headers);
+        searchResponse = restTemplate.exchange(
+                getUrl("/flight/" + Objects.requireNonNull(addResponse.getBody()).getId()), HttpMethod.GET, entity, Flight.class
+        );
+        flight.setId(null);
+        Objects.requireNonNull(searchResponse.getBody()).setId(null);
+        assertEquals(flight, searchResponse.getBody());
     }
 
     @Test

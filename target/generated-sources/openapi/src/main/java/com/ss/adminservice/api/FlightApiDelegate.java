@@ -16,7 +16,7 @@ import java.util.Optional;
  * A delegate to be called by the {@link FlightApiController}}.
  * Implement this interface with a {@link org.springframework.stereotype.Service} annotated class.
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2021-06-19T20:36:03.845684600-06:00[America/Denver]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2021-06-19T22:17:56.090082400-06:00[America/Denver]")
 public interface FlightApiDelegate {
 
     default Optional<NativeWebRequest> getRequest() {
@@ -61,12 +61,11 @@ public interface FlightApiDelegate {
     /**
      * GET /flight : Get all flights
      *
-     * @param flightId  (required)
      * @return Read successful (status code 200)
      *         or How did you mess this up (status code 400)
      * @see FlightApi#getAllFlights
      */
-    default ResponseEntity<List<Flight>> getAllFlights(String flightId) {
+    default ResponseEntity<List<Flight>> getAllFlights() {
         getRequest().ifPresent(request -> {
             for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {

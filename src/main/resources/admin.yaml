@@ -330,12 +330,6 @@ paths:
     get:
       operationId: getAllFlights
       summary: Get all flights
-      parameters:
-        - name: flightId
-          in: path
-          required: true
-          schema:
-            type: string
       responses:
         200:
           description: Read successful

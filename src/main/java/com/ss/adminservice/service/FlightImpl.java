@@ -44,10 +44,9 @@ public class FlightImpl implements FlightApiDelegate {
     public ResponseEntity<Flight> addFlight(Flight flight) {
         if (flightRepo.existsById(UUID.fromString(flight.getId()))) return ResponseEntity.badRequest().body(null);
         try {
-            flight.setId(null);
-            return ResponseEntity.ok(
-                    convertToDTO(flightRepo.save(convertToEntity(flight)))
-            );
+            FlightEnt newFlight = flightRepo.save(convertToEntity(flight));
+            if (newFlight.getId() == null) return ResponseEntity.badRequest().body(null);
+            return ResponseEntity.ok(convertToDTO(newFlight));
         } catch (Exception ignored) {
         }
         return ResponseEntity.badRequest().body(null);
@@ -74,13 +73,12 @@ public class FlightImpl implements FlightApiDelegate {
     /**
      * GET /flight : Get all flights
      *
-     * @param flightId (required)
      * @return Read successful (status code 200)
      * or How did you mess this up (status code 400)
      * @see FlightApi#getAllFlights
      */
     @Override
-    public ResponseEntity<List<Flight>> getAllFlights(String flightId) {
+    public ResponseEntity<List<Flight>> getAllFlights() {
         try {
             List<Flight> flights = new ArrayList<>();
             flightRepo.findAll().forEach(ent -> flights.add(convertToDTO(ent)));
@@ -88,7 +86,7 @@ public class FlightImpl implements FlightApiDelegate {
         } catch (Exception ignored) {
         }
 
-        return ResponseEntity.badRequest().body(null);
+        return ResponseEntity.badRequest().body(new ArrayList<>());
     }
 
     /**
@@ -100,13 +98,14 @@ public class FlightImpl implements FlightApiDelegate {
      * @see FlightApi#getFlight
      */
     public ResponseEntity<Flight> getFlight(String flightId) {
-        try{
+        try {
             Optional<FlightEnt> opEnt = flightRepo.findById(UUID.fromString(flightId));
-            if(opEnt.isPresent())
+            if (opEnt.isPresent())
                 return ResponseEntity.ok(
                         convertToDTO(opEnt.get())
                 );
-        }catch (Exception ignored){}
+        } catch (Exception ignored) {
+        }
         return ResponseEntity.badRequest().body(null);
     }
 
@@ -121,16 +120,17 @@ public class FlightImpl implements FlightApiDelegate {
      */
     @Override
     public ResponseEntity<Void> updateFlight(String flightId, Flight flight) {
-        if(flight != null){
-            try{
+        if (flight != null) {
+            try {
                 Optional<FlightEnt> opEnt = flightRepo.findById(UUID.fromString(flightId));
-                if(opEnt.isPresent()){
+                if (opEnt.isPresent()) {
                     FlightEnt entity = opEnt.get();
                     modelMapper.getConfiguration().setPropertyCondition(Conditions.isNotNull());
                     modelMapper.map(convertToEntity(flight), entity);
                     flightRepo.save(entity);
                 }
-            }catch (Exception ignored){}
+            } catch (Exception ignored) {
+            }
         }
         return ResponseEntity.badRequest().body(null);
     }
@@ -145,8 +145,8 @@ public class FlightImpl implements FlightApiDelegate {
 
     private FlightEnt convertToEntity(Flight flight) {
         FlightEnt flightEnt = modelMapper.map(flight, FlightEnt.class);
-        flightEnt.setAirplane(modelMapper.map(flight.getAirplane(), AirplaneEnt.class));
-        flightEnt.setRoute(modelMapper.map(flight.getRoute(), RouteEnt.class));
+        flightEnt.setAirplane(new AirplaneEnt().setId(UUID.fromString(flight.getAirplane().getId())));
+        flightEnt.setRoute(new RouteEnt().setId(UUID.fromString(flight.getRoute().getId())));
         flightEnt.setDepartureTime(flight.getDepartureTime().atZoneSameInstant(ZoneId.of("UTC")));
         return flightEnt;
     }

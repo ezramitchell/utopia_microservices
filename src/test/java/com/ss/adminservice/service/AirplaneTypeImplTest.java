@@ -5,12 +5,14 @@ import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
-import org.springframework.http.*;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.Objects;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @RunWith(SpringRunner.class)
@@ -33,19 +35,6 @@ class AirplaneTypeImplTest {
                 """;
         restTemplate = new TestRestTemplate();
         headers = new HttpHeaders();
-    }
-
-    @Test
-    void addType() {
-        headers.clear();
-        headers.add("Content-Type", "application/json");
-        HttpEntity<String> entity = new HttpEntity<>(airplaneType, headers);
-
-        ResponseEntity<String> response = restTemplate.exchange(
-                getUrl("/airplane_type"), HttpMethod.PUT, entity, String.class);
-
-        assertEquals(response.getStatusCode(), HttpStatus.OK);
-
     }
 
     @Test

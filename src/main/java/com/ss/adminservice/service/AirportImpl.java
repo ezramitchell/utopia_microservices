@@ -19,6 +19,7 @@ import java.util.Optional;
 public class AirportImpl implements AirportApiDelegate {
     private final AirportRepo airportRepo;
     private final ModelMapper modelMapper;
+
     public AirportImpl(AirportRepo airportRepo, ModelMapper modelMapper) {
         this.airportRepo = airportRepo;
         this.modelMapper = modelMapper;
@@ -41,10 +42,10 @@ public class AirportImpl implements AirportApiDelegate {
     @Override
     public ResponseEntity<Void> deleteAirport(String iataId) {
         System.out.println(iataId);
-        try{
+        try {
             airportRepo.deleteById(iataId);
             return ResponseEntity.ok(null);
-        }catch (Exception e){
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
         return ResponseEntity.badRequest().body(null);

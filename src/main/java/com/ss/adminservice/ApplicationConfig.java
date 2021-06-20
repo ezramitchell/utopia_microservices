@@ -14,7 +14,7 @@ import java.time.ZoneId;
 public class ApplicationConfig {
 
     @Bean
-    public ModelMapper modelMapper(){
+    public ModelMapper modelMapper() {
         return new ModelMapper();
     }
 
@@ -25,29 +25,29 @@ public class ApplicationConfig {
             AirportRepo airportRepo,
             FlightRepo flightRepo,
             RouteRepo routeRepo
-    ){
+    ) {
         return args -> {
             //initialize data
             //add two airports
             AirportEnt airportEnt = new AirportEnt("ATL", "Atlanta");
-            if(!airportRepo.existsById(airportEnt.getIataId())) {
+            if (!airportRepo.existsById(airportEnt.getIataId())) {
                 airportRepo.save(airportEnt);
             }
             airportEnt = new AirportEnt("DEN", "Denver");
-            if(!airportRepo.existsById(airportEnt.getIataId())) {
+            if (!airportRepo.existsById(airportEnt.getIataId())) {
                 airportRepo.save(airportEnt);
             }
             //add route
-            if(routeRepo.findAll().spliterator().getExactSizeIfKnown() == 0) {
+            if (routeRepo.findAll().spliterator().getExactSizeIfKnown() == 0) {
                 routeRepo.save(new RouteEnt()
                         .setDestinationAirport(new AirportEnt().setIataId("ATL"))
                         .setOriginAirport(new AirportEnt().setIataId("DEN")));
             }
             //add airplane type if none
-            if(airplaneTypeRepo.findAll().spliterator().getExactSizeIfKnown() == 0)
+            if (airplaneTypeRepo.findAll().spliterator().getExactSizeIfKnown() == 0)
                 airplaneTypeRepo.save(new AirplaneTypeEnt().setMaxCapacity(47));
             //add airplane if none
-            if(airplaneRepo.findAll().spliterator().getExactSizeIfKnown() == 0)
+            if (airplaneRepo.findAll().spliterator().getExactSizeIfKnown() == 0)
                 airplaneRepo.save(new AirplaneEnt().setAirplaneType(
                         airplaneTypeRepo.findAll().iterator().next()));
             //add flight if none

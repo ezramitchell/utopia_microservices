@@ -13,7 +13,7 @@ public class FlightEnt {
     @Id
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
-    @org.hibernate.annotations.Type(type="org.hibernate.type.UUIDCharType")
+    @org.hibernate.annotations.Type(type = "org.hibernate.type.UUIDCharType")
     private UUID id;
     @JoinColumn(nullable = false)
     @ManyToOne(optional = false, targetEntity = RouteEnt.class)
@@ -30,13 +30,13 @@ public class FlightEnt {
     @Column(nullable = false)
     private float seatPrice;
 
+    public UUID getId() {
+        return id;
+    }
+
     public FlightEnt setId(UUID id) {
         this.id = id;
         return this;
-    }
-
-    public UUID getId() {
-        return id;
     }
 
     public RouteEnt getRoute() {
