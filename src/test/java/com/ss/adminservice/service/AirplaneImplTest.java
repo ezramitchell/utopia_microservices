@@ -1,6 +1,5 @@
 package com.ss.adminservice.service;
 
-
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -16,49 +15,57 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-class AirportImplTest {
+class AirplaneImplTest {
 
     TestRestTemplate restTemplate;
-    String airport;
+    String airplaneType;
     HttpHeaders headers;
     @LocalServerPort
     private int port;
 
 
-    public AirportImplTest() {
-        airport = """
+    public AirplaneImplTest() {
+        airplaneType = """
                 {
-                \t"iataId": "AAA",
-                \t"city": "reserved"
-                }""";
+                	"id": null,
+                	"airplaneType": {
+                    "id": "202484c7-8700-41a6-a727-df7e93786cf3"
+                  }
+                }
+                """;
         restTemplate = new TestRestTemplate();
         headers = new HttpHeaders();
     }
 
     @Test
-    void addDeleteAirport() {
+    void addType() {
         headers.clear();
         headers.add("Content-Type", "application/json");
-        HttpEntity<String> entity = new HttpEntity<>(airport, headers);
+        HttpEntity<String> entity = new HttpEntity<>(airplaneType, headers);
+
         ResponseEntity<String> response = restTemplate.exchange(
-                getUrl("/airport"), HttpMethod.PUT, entity, String.class);
+                getUrl("/airplane"), HttpMethod.PUT, entity, String.class);
+
         assertEquals(response.getStatusCode(), HttpStatus.OK);
-        //delete
-        headers.clear();
-        entity = new HttpEntity<>("", headers);
-        response = restTemplate.exchange(
-                getUrl("/airport/AAA"), HttpMethod.DELETE, entity, String.class
-        );
-        assertEquals(response.getStatusCode(), HttpStatus.OK);
+
+//        entity = new HttpEntity<>(airplaneType, headers);
+//
+//        response = restTemplate.exchange(
+//                getUrl("/airplane/"), HttpMethod.DELETE, entity, String.class);
+//
+//        assertEquals(response.getStatusCode(), HttpStatus.OK);
+        //TODO add return value to add methods
     }
 
     @Test
-    void AllAirports() {
+    void allTypes() {
         headers.clear();
         HttpEntity<String> entity = new HttpEntity<>("", headers);
+
         ResponseEntity<String> response = restTemplate.exchange(
-                getUrl("/airport"), HttpMethod.GET, entity, String.class
+                getUrl("/airplane"), HttpMethod.GET, entity, String.class
         );
+
         assertTrue(Objects.requireNonNull(response.getBody()).length() > 1); //at least returned an empty array
     }
 

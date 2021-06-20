@@ -17,7 +17,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.*;
 import java.util.List;
 import java.util.Map;
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2021-06-19T12:52:51.050113-06:00[America/Denver]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2021-06-19T20:36:03.845684600-06:00[America/Denver]")
 @Validated
 @Api(value = "flight", description = "the flight API")
 public interface FlightApi {
@@ -33,15 +33,16 @@ public interface FlightApi {
      * @return Add successful (status code 200)
      *         or Add failed (status code 400)
      */
-    @ApiOperation(value = "Add flight, id unnecessary", nickname = "addFlight", notes = "", tags={  })
+    @ApiOperation(value = "Add flight, id unnecessary", nickname = "addFlight", notes = "", response = Flight.class, tags={  })
     @ApiResponses(value = { 
-        @ApiResponse(code = 200, message = "Add successful"),
+        @ApiResponse(code = 200, message = "Add successful", response = Flight.class),
         @ApiResponse(code = 400, message = "Add failed") })
     @PutMapping(
         value = "/flight",
+        produces = { "application/json" },
         consumes = { "application/json" }
     )
-    default ResponseEntity<Void> addFlight(@ApiParam(value = ""  )  @Valid @RequestBody(required = false) Flight flight) {
+    default ResponseEntity<Flight> addFlight(@ApiParam(value = ""  )  @Valid @RequestBody(required = false) Flight flight) {
         return getDelegate().addFlight(flight);
     }
 
@@ -92,15 +93,15 @@ public interface FlightApi {
      * @return Read successful (status code 200)
      *         or How did you mess this up (status code 400)
      */
-    @ApiOperation(value = "Get flight at id", nickname = "getFlight", notes = "", response = Flight.class, responseContainer = "List", tags={  })
+    @ApiOperation(value = "Get flight at id", nickname = "getFlight", notes = "", response = Flight.class, tags={  })
     @ApiResponses(value = { 
-        @ApiResponse(code = 200, message = "Read successful", response = Flight.class, responseContainer = "List"),
+        @ApiResponse(code = 200, message = "Read successful", response = Flight.class),
         @ApiResponse(code = 400, message = "How did you mess this up") })
     @GetMapping(
         value = "/flight/{flightId}",
         produces = { "application/json" }
     )
-    default ResponseEntity<List<Flight>> getFlight(@ApiParam(value = "",required=true) @PathVariable("flightId") String flightId) {
+    default ResponseEntity<Flight> getFlight(@ApiParam(value = "",required=true) @PathVariable("flightId") String flightId) {
         return getDelegate().getFlight(flightId);
     }
 

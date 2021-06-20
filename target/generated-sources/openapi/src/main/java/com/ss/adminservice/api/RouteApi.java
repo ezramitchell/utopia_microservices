@@ -17,7 +17,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.*;
 import java.util.List;
 import java.util.Map;
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2021-06-19T12:52:51.050113-06:00[America/Denver]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2021-06-19T20:36:03.845684600-06:00[America/Denver]")
 @Validated
 @Api(value = "route", description = "the route API")
 public interface RouteApi {
@@ -33,15 +33,16 @@ public interface RouteApi {
      * @return Add successful (status code 200)
      *         or Add failed (status code 400)
      */
-    @ApiOperation(value = "Add Route", nickname = "addRoute", notes = "", tags={  })
+    @ApiOperation(value = "Add Route", nickname = "addRoute", notes = "", response = Route.class, tags={  })
     @ApiResponses(value = { 
-        @ApiResponse(code = 200, message = "Add successful"),
+        @ApiResponse(code = 200, message = "Add successful", response = Route.class),
         @ApiResponse(code = 400, message = "Add failed") })
     @PutMapping(
         value = "/route",
+        produces = { "application/json" },
         consumes = { "application/json" }
     )
-    default ResponseEntity<Void> addRoute(@ApiParam(value = ""  )  @Valid @RequestBody(required = false) Route route) {
+    default ResponseEntity<Route> addRoute(@ApiParam(value = ""  )  @Valid @RequestBody(required = false) Route route) {
         return getDelegate().addRoute(route);
     }
 

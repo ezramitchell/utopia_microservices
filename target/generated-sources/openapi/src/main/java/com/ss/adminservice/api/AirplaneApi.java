@@ -17,7 +17,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.*;
 import java.util.List;
 import java.util.Map;
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2021-06-19T12:52:51.050113-06:00[America/Denver]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2021-06-19T20:36:03.845684600-06:00[America/Denver]")
 @Validated
 @Api(value = "airplane", description = "the airplane API")
 public interface AirplaneApi {
@@ -34,16 +34,37 @@ public interface AirplaneApi {
      * @return add successful (status code 200)
      *         or add failed (status code 400)
      */
-    @ApiOperation(value = "", nickname = "addAirplane", notes = "add airplane", tags={  })
+    @ApiOperation(value = "", nickname = "addAirplane", notes = "add airplane", response = Airplane.class, tags={  })
     @ApiResponses(value = { 
-        @ApiResponse(code = 200, message = "add successful"),
+        @ApiResponse(code = 200, message = "add successful", response = Airplane.class),
         @ApiResponse(code = 400, message = "add failed") })
     @PutMapping(
         value = "/airplane",
+        produces = { "application/json" },
         consumes = { "application/json" }
     )
-    default ResponseEntity<Void> addAirplane(@ApiParam(value = ""  )  @Valid @RequestBody(required = false) Airplane airplane) {
+    default ResponseEntity<Airplane> addAirplane(@ApiParam(value = ""  )  @Valid @RequestBody(required = false) Airplane airplane) {
         return getDelegate().addAirplane(airplane);
+    }
+
+
+    /**
+     * DELETE /airplane/{airplaneId}
+     * delete airplane at id
+     *
+     * @param airplaneId  (required)
+     * @return delete successful (status code 200)
+     *         or delete failed (status code 400)
+     */
+    @ApiOperation(value = "", nickname = "deleteAirplane", notes = "delete airplane at id", tags={  })
+    @ApiResponses(value = { 
+        @ApiResponse(code = 200, message = "delete successful"),
+        @ApiResponse(code = 400, message = "delete failed") })
+    @DeleteMapping(
+        value = "/airplane/{airplaneId}"
+    )
+    default ResponseEntity<Void> deleteAirplane(@ApiParam(value = "",required=true) @PathVariable("airplaneId") String airplaneId) {
+        return getDelegate().deleteAirplane(airplaneId);
     }
 
 
@@ -89,7 +110,7 @@ public interface AirplaneApi {
      * update airplane
      *
      * @param airplaneId  (required)
-     * @param airplane  (optional)
+     * @param airplane  (required)
      * @return update succesful (status code 200)
      *         or update failed (status code 400)
      */
@@ -101,7 +122,7 @@ public interface AirplaneApi {
         value = "/airplane/{airplaneId}",
         consumes = { "application/json" }
     )
-    default ResponseEntity<Void> updateAirplane(@ApiParam(value = "",required=true) @PathVariable("airplaneId") String airplaneId,@ApiParam(value = ""  )  @Valid @RequestBody(required = false) Airplane airplane) {
+    default ResponseEntity<Void> updateAirplane(@ApiParam(value = "",required=true) @PathVariable("airplaneId") String airplaneId,@ApiParam(value = "" ,required=true )  @Valid @RequestBody Airplane airplane) {
         return getDelegate().updateAirplane(airplaneId, airplane);
     }
 

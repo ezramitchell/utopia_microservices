@@ -16,7 +16,7 @@ import java.util.Optional;
  * A delegate to be called by the {@link AirplaneTypeApiController}}.
  * Implement this interface with a {@link org.springframework.stereotype.Service} annotated class.
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2021-06-19T12:52:51.050113-06:00[America/Denver]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2021-06-19T20:36:03.845684600-06:00[America/Denver]")
 public interface AirplaneTypeApiDelegate {
 
     default Optional<NativeWebRequest> getRequest() {
@@ -32,7 +32,16 @@ public interface AirplaneTypeApiDelegate {
      *         or add failed (status code 400)
      * @see AirplaneTypeApi#addAirplaneType
      */
-    default ResponseEntity<Void> addAirplaneType(AirplaneType airplaneType) {
+    default ResponseEntity<AirplaneType> addAirplaneType(AirplaneType airplaneType) {
+        getRequest().ifPresent(request -> {
+            for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
+                if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
+                    String exampleString = "{ \"maxCapacity\" : 0, \"id\" : \"id\" }";
+                    ApiUtil.setExampleResponse(request, "application/json", exampleString);
+                    break;
+                }
+            }
+        });
         return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
 
     }

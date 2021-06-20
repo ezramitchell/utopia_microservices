@@ -16,7 +16,7 @@ import java.util.Optional;
  * A delegate to be called by the {@link FlightApiController}}.
  * Implement this interface with a {@link org.springframework.stereotype.Service} annotated class.
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2021-06-19T12:52:51.050113-06:00[America/Denver]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2021-06-19T20:36:03.845684600-06:00[America/Denver]")
 public interface FlightApiDelegate {
 
     default Optional<NativeWebRequest> getRequest() {
@@ -31,7 +31,16 @@ public interface FlightApiDelegate {
      *         or Add failed (status code 400)
      * @see FlightApi#addFlight
      */
-    default ResponseEntity<Void> addFlight(Flight flight) {
+    default ResponseEntity<Flight> addFlight(Flight flight) {
+        getRequest().ifPresent(request -> {
+            for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
+                if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
+                    String exampleString = "{ \"departureTime\" : \"2000-01-23T04:56:07.000+00:00\", \"reservedSeats\" : 6, \"route\" : { \"originAirport\" : { \"city\" : \"city\", \"iataId\" : \"iataId\" }, \"id\" : \"id\", \"destinationAirport\" : { \"city\" : \"city\", \"iataId\" : \"iataId\" } }, \"airplane\" : { \"airplaneType\" : { \"maxCapacity\" : 0, \"id\" : \"id\" }, \"id\" : \"id\" }, \"id\" : \"id\", \"seatPrice\" : 1.4658129 }";
+                    ApiUtil.setExampleResponse(request, "application/json", exampleString);
+                    break;
+                }
+            }
+        });
         return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
 
     }
@@ -79,7 +88,7 @@ public interface FlightApiDelegate {
      *         or How did you mess this up (status code 400)
      * @see FlightApi#getFlight
      */
-    default ResponseEntity<List<Flight>> getFlight(String flightId) {
+    default ResponseEntity<Flight> getFlight(String flightId) {
         getRequest().ifPresent(request -> {
             for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {

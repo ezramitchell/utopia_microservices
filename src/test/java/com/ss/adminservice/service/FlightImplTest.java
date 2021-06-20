@@ -16,48 +16,40 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-class AirportImplTest {
+class FlightImplTest {
 
     TestRestTemplate restTemplate;
-    String airport;
+    String flight;
     HttpHeaders headers;
     @LocalServerPort
     private int port;
 
 
-    public AirportImplTest() {
-        airport = """
-                {
-                \t"iataId": "AAA",
-                \t"city": "reserved"
-                }""";
+    public FlightImplTest() {
+        flight = """
+               "id": null,
+               "departure_time"
+               """;
         restTemplate = new TestRestTemplate();
         headers = new HttpHeaders();
     }
 
     @Test
-    void addDeleteAirport() {
+    void addFlight() {
         headers.clear();
         headers.add("Content-Type", "application/json");
-        HttpEntity<String> entity = new HttpEntity<>(airport, headers);
+        HttpEntity<String> entity = new HttpEntity<>(flight, headers);
         ResponseEntity<String> response = restTemplate.exchange(
-                getUrl("/airport"), HttpMethod.PUT, entity, String.class);
-        assertEquals(response.getStatusCode(), HttpStatus.OK);
-        //delete
-        headers.clear();
-        entity = new HttpEntity<>("", headers);
-        response = restTemplate.exchange(
-                getUrl("/airport/AAA"), HttpMethod.DELETE, entity, String.class
-        );
-        assertEquals(response.getStatusCode(), HttpStatus.OK);
+                getUrl("/flight"), HttpMethod.PUT, entity, String.class);
+        assertEquals(response.getStatusCode(), HttpStatus.BAD_REQUEST);
     }
 
     @Test
-    void AllAirports() {
+    void allFlights() {
         headers.clear();
         HttpEntity<String> entity = new HttpEntity<>("", headers);
         ResponseEntity<String> response = restTemplate.exchange(
-                getUrl("/airport"), HttpMethod.GET, entity, String.class
+                getUrl("/flight"), HttpMethod.GET, entity, String.class
         );
         assertTrue(Objects.requireNonNull(response.getBody()).length() > 1); //at least returned an empty array
     }

@@ -39,11 +39,11 @@ public class AirplaneTypeImpl implements AirplaneTypeApiDelegate {
      * @see AirplaneTypeApi#addAirplaneType
      */
     @Override
-    public ResponseEntity<Void> addAirplaneType(AirplaneType airplaneType) {
+    public ResponseEntity<AirplaneType> addAirplaneType(AirplaneType airplaneType) {
         try {
             if (airplaneType.getId() == null) {
-                airplaneTypeRepo.save(convertToEntity(airplaneType));
-                return ResponseEntity.ok(null);
+                return ResponseEntity.ok(
+                        convertToDTO(airplaneTypeRepo.save(convertToEntity(airplaneType))));
             }
         } catch (Exception ignored) {
         }

@@ -16,7 +16,7 @@ import java.util.Optional;
  * A delegate to be called by the {@link AirplaneApiController}}.
  * Implement this interface with a {@link org.springframework.stereotype.Service} annotated class.
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2021-06-19T12:52:51.050113-06:00[America/Denver]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2021-06-19T20:36:03.845684600-06:00[America/Denver]")
 public interface AirplaneApiDelegate {
 
     default Optional<NativeWebRequest> getRequest() {
@@ -32,7 +32,30 @@ public interface AirplaneApiDelegate {
      *         or add failed (status code 400)
      * @see AirplaneApi#addAirplane
      */
-    default ResponseEntity<Void> addAirplane(Airplane airplane) {
+    default ResponseEntity<Airplane> addAirplane(Airplane airplane) {
+        getRequest().ifPresent(request -> {
+            for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
+                if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
+                    String exampleString = "{ \"airplaneType\" : { \"maxCapacity\" : 0, \"id\" : \"id\" }, \"id\" : \"id\" }";
+                    ApiUtil.setExampleResponse(request, "application/json", exampleString);
+                    break;
+                }
+            }
+        });
+        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+
+    }
+
+    /**
+     * DELETE /airplane/{airplaneId}
+     * delete airplane at id
+     *
+     * @param airplaneId  (required)
+     * @return delete successful (status code 200)
+     *         or delete failed (status code 400)
+     * @see AirplaneApi#deleteAirplane
+     */
+    default ResponseEntity<Void> deleteAirplane(String airplaneId) {
         return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
 
     }
@@ -85,7 +108,7 @@ public interface AirplaneApiDelegate {
      * update airplane
      *
      * @param airplaneId  (required)
-     * @param airplane  (optional)
+     * @param airplane  (required)
      * @return update succesful (status code 200)
      *         or update failed (status code 400)
      * @see AirplaneApi#updateAirplane

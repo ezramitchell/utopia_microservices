@@ -17,7 +17,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.*;
 import java.util.List;
 import java.util.Map;
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2021-06-19T12:52:51.050113-06:00[America/Denver]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2021-06-19T20:36:03.845684600-06:00[America/Denver]")
 @Validated
 @Api(value = "airplane_type", description = "the airplane_type API")
 public interface AirplaneTypeApi {
@@ -34,15 +34,16 @@ public interface AirplaneTypeApi {
      * @return add successful (status code 200)
      *         or add failed (status code 400)
      */
-    @ApiOperation(value = "", nickname = "addAirplaneType", notes = "add airplanetype", tags={  })
+    @ApiOperation(value = "", nickname = "addAirplaneType", notes = "add airplanetype", response = AirplaneType.class, tags={  })
     @ApiResponses(value = { 
-        @ApiResponse(code = 200, message = "add successful"),
+        @ApiResponse(code = 200, message = "add successful", response = AirplaneType.class),
         @ApiResponse(code = 400, message = "add failed") })
     @PutMapping(
         value = "/airplane_type",
+        produces = { "application/json" },
         consumes = { "application/json" }
     )
-    default ResponseEntity<Void> addAirplaneType(@ApiParam(value = ""  )  @Valid @RequestBody(required = false) AirplaneType airplaneType) {
+    default ResponseEntity<AirplaneType> addAirplaneType(@ApiParam(value = ""  )  @Valid @RequestBody(required = false) AirplaneType airplaneType) {
         return getDelegate().addAirplaneType(airplaneType);
     }
 

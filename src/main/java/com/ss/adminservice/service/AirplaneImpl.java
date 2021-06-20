@@ -46,11 +46,10 @@ public class AirplaneImpl implements AirplaneApiDelegate {
      * @see AirplaneApi#addAirplane
      */
     @Override
-    public ResponseEntity<Void> addAirplane(Airplane airplane) {
+    public ResponseEntity<Airplane> addAirplane(Airplane airplane) {
         try {
             if (airplane.getId() == null) {
-                airplaneRepo.save(convertToEntity(airplane));
-                return ResponseEntity.ok(null);
+                return ResponseEntity.ok(convertToDTO(airplaneRepo.save(convertToEntity(airplane))));
             }
         } catch (Exception ignored) {
         }
@@ -92,7 +91,7 @@ public class AirplaneImpl implements AirplaneApiDelegate {
      *
      * @param airplaneId (required)
      * @param airplane   (optional)
-     * @return update succesful (status code 200)
+     * @return update successful (status code 200)
      * or update failed (status code 400)
      * @see AirplaneApi#updateAirplane
      */
@@ -103,11 +102,31 @@ public class AirplaneImpl implements AirplaneApiDelegate {
         if (ent.isPresent()) {
             modelMapper.getConfiguration().setPropertyCondition(Conditions.isNotNull());
             airplane.setId(null);
-            modelMapper.map(ent, convertToEntity(airplane));
+            AirplaneEnt entity = ent.get();
+            modelMapper.map(convertToEntity(airplane), entity);
+            airplaneRepo.save(entity);
+            return ResponseEntity.ok(null);
         }
         return ResponseEntity.badRequest().body(null);
     }
 
+    /**
+     * DELETE /airplane/{airplaneId}
+     * delete airplane at id
+     *
+     * @param airplaneId (required)
+     * @return delete successful (status code 200)
+     * or delete failed (status code 400)
+     * @see AirplaneApi#deleteAirplane
+     */
+    @Override
+    public ResponseEntity<Void> deleteAirplane(String airplaneId) {
+        try{
+            airplaneRepo.deleteById(UUID.fromString(airplaneId));
+            return ResponseEntity.ok(null);
+        } catch (Exception ignored){}
+        return ResponseEntity.badRequest().body(null);
+    }
 
     private AirplaneEnt convertToEntity(Airplane airplane) {
         AirplaneEnt ent = modelMapper.map(airplane, AirplaneEnt.class);

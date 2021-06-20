@@ -18,7 +18,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.*;
 import java.util.List;
 import java.util.Map;
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2021-06-19T12:52:51.050113-06:00[America/Denver]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2021-06-19T20:36:03.845684600-06:00[America/Denver]")
 @Validated
 @Api(value = "user", description = "the user API")
 public interface UserApi {
@@ -35,15 +35,16 @@ public interface UserApi {
      * @return Add successful (status code 200)
      *         or Add failed (status code 400)
      */
-    @ApiOperation(value = "Added new booking", nickname = "addBooking", notes = "", tags={  })
+    @ApiOperation(value = "Added new booking", nickname = "addBooking", notes = "", response = Booking.class, tags={  })
     @ApiResponses(value = { 
-        @ApiResponse(code = 200, message = "Add successful"),
+        @ApiResponse(code = 200, message = "Add successful", response = Booking.class),
         @ApiResponse(code = 400, message = "Add failed") })
     @PutMapping(
         value = "/user/{userId}/booking",
+        produces = { "application/json" },
         consumes = { "application/json" }
     )
-    default ResponseEntity<Void> addBooking(@ApiParam(value = "",required=true) @PathVariable("userId") String userId,@ApiParam(value = ""  )  @Valid @RequestBody(required = false) Booking booking) {
+    default ResponseEntity<Booking> addBooking(@ApiParam(value = "",required=true) @PathVariable("userId") String userId,@ApiParam(value = ""  )  @Valid @RequestBody(required = false) Booking booking) {
         return getDelegate().addBooking(userId, booking);
     }
 
@@ -157,7 +158,7 @@ public interface UserApi {
      * @return Update succeeded (status code 200)
      *         or Update failed (status code 400)
      */
-    @ApiOperation(value = "Update user", nickname = "userPost", notes = "Id necessary, any other non null properties will be updated", tags={  })
+    @ApiOperation(value = "Update user", nickname = "updateUser", notes = "Id necessary, any other non null properties will be updated", tags={  })
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "Update succeeded"),
         @ApiResponse(code = 400, message = "Update failed") })
@@ -165,8 +166,8 @@ public interface UserApi {
         value = "/user",
         consumes = { "application/json" }
     )
-    default ResponseEntity<Void> userPost(@ApiParam(value = ""  )  @Valid @RequestBody(required = false) User user) {
-        return getDelegate().userPost(user);
+    default ResponseEntity<Void> updateUser(@ApiParam(value = ""  )  @Valid @RequestBody(required = false) User user) {
+        return getDelegate().updateUser(user);
     }
 
 }

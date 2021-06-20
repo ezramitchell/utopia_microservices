@@ -166,6 +166,7 @@ paths:
         400:
           description: Delete failed
     post:
+      operationId: updateUser
       summary: Update user
       description: Id necessary, any other non null properties will be updated
       requestBody:
@@ -216,6 +217,10 @@ paths:
       responses:
         200:
           description: Add successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Booking'
         400:
           description: Add failed
     post:
@@ -268,9 +273,7 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Flight'
+                $ref: '#/components/schemas/Flight'
         400:
           description: How did you mess this up
     delete:
@@ -318,6 +321,10 @@ paths:
       responses:
         200:
           description: Add successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Flight'
         400:
           description: Add failed
     get:
@@ -395,6 +402,10 @@ paths:
       responses:
         200:
           description: Add successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Route'
         400:
           description: Add failed
     get:
@@ -464,6 +475,10 @@ paths:
       responses:
         200:
           description: add successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Airplane'
         400:
           description: add failed
   /airplane/{airplaneId}:
@@ -483,6 +498,20 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Airplane'
+    delete:
+      operationId: deleteAirplane
+      description: delete airplane at id
+      parameters:
+        - name: airplaneId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: delete successful
+        400:
+          description: delete failed
     post:
       operationId: updateAirplane
       description: update airplane
@@ -493,10 +522,12 @@ paths:
           schema:
             type: string
       requestBody:
+        required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/Airplane'
+
       responses:
         200:
           description: update succesful
@@ -514,6 +545,10 @@ paths:
       responses:
         200:
           description: add successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AirplaneType'
         400:
           description: add failed
     get:
