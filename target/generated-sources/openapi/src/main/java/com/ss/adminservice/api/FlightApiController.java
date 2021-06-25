@@ -3,7 +3,7 @@ package com.ss.adminservice.api;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.Optional;
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2021-06-24T19:10:03.915280200-06:00[America/Denver]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2021-06-24T19:25:38.654864600-06:00[America/Denver]")
 @Controller
 @RequestMapping("${openapi.utopia.base-path:}")
 public class FlightApiController implements FlightApi {
