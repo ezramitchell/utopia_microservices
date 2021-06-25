@@ -1,0 +1,92 @@
+package com.ss.adminservice;
+
+import com.ss.adminservice.entity.*;
+import com.ss.adminservice.repo.*;
+import org.modelmapper.ModelMapper;
+import org.springframework.boot.ApplicationRunner;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+
+@Configuration
+public class ApplicationConfig {
+
+    @Bean
+    public ModelMapper modelMapper() {
+        return new ModelMapper();
+    }
+
+    @Bean
+    public ApplicationRunner getRunner(
+            AirplaneRepo airplaneRepo,
+            AirplaneTypeRepo airplaneTypeRepo,
+            AirportRepo airportRepo,
+            FlightRepo flightRepo,
+            RouteRepo routeRepo,
+            UserRepo userRepo,
+            BookingRepo bookingRepo
+    ) {
+        return args -> {
+            //initialize data
+            //add two airports
+            AirportEnt airportEnt = new AirportEnt("ATL", "Atlanta");
+            if (!airportRepo.existsById(airportEnt.getIataId())) {
+                airportRepo.save(airportEnt);
+            }
+            airportEnt = new AirportEnt("DEN", "Denver");
+            if (!airportRepo.existsById(airportEnt.getIataId())) {
+                airportRepo.save(airportEnt);
+            }
+            //add route
+            if (routeRepo.findAll().spliterator().getExactSizeIfKnown() == 0) {
+                routeRepo.save(new RouteEnt()
+                        .setDestinationAirport(new AirportEnt().setIataId("ATL"))
+                        .setOriginAirport(new AirportEnt().setIataId("DEN")));
+            }
+            //add airplane type if none
+            if (airplaneTypeRepo.findAll().spliterator().getExactSizeIfKnown() == 0)
+                airplaneTypeRepo.save(new AirplaneTypeEnt().setMaxCapacity(47));
+            //add airplane if none
+            if (airplaneRepo.findAll().spliterator().getExactSizeIfKnown() == 0)
+                airplaneRepo.save(new AirplaneEnt().setAirplaneType(
+                        airplaneTypeRepo.findAll().iterator().next()));
+            //add flight if none
+            if (flightRepo.findAll().spliterator().getExactSizeIfKnown() == 0) {
+                flightRepo.save(new FlightEnt()
+                        .setAirplane(airplaneRepo.findAll().iterator().next())
+                        .setRoute(routeRepo.findAll().iterator().next())
+                        .setDepartureTime(LocalDateTime.now().atZone(ZoneId.of("UTC")))
+                        .setReservedSeats(40)
+                        .setSeatPrice(40.53f));
+            }
+            //add sample user
+            if (userRepo.findByEmail("sample").isEmpty()) {
+                userRepo.save(new UserEnt()
+                        .setEmail("sample")
+                        .setFirstName("name")
+                        .setLastName("last")
+                        .setUsername("traveler")
+                        .setPassword("password")
+                        .setUserRole("traveler")
+                        .setPhone("phone"));
+            }
+            if (bookingRepo.findAll().spliterator().getExactSizeIfKnown() == 0) {
+                bookingRepo.save(new BookingEnt()
+                        .setActive(true)
+                        .setConfirmationCode("confirmed")
+                        .setFlight(flightRepo.findAll().iterator().next())
+                        .setPassenger(new PassengerEnt()
+                                .setFirstName("first")
+                                .setLastName("last")
+                                .setAddress("address")
+                                .setGender("gender"))
+                        .setPayment(new BookingPaymentEnt()
+                                .setRefunded(false)
+                                .setStripeId("stripeid"))
+                        .setUser(userRepo.findAll().iterator().next()));
+            }
+        };
+    }
+}

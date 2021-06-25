@@ -1,0 +1,209 @@
+openapi: 3.0.3
+
+info:
+  title: Utopia api
+  description: simple api for interfacing with utopa database
+  version: 0.0.1
+
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+          description: UUID string
+        userRole:
+          type: string
+        lastName:
+          type: string
+        firstName:
+          type: string
+        username:
+          type: string
+        password:
+          type: string
+          description: This is available only for creating new accounts
+        email:
+          type: string
+        phone:
+          type: string
+    Airport:
+      type: object
+      properties:
+        iataId:
+          type: string
+        city:
+          type: string
+    AirplaneType:
+      type: object
+      properties:
+        id:
+          type: string
+          description: UUID
+        maxCapacity:
+          type: integer
+          format: int32
+    Airplane:
+      type: object
+      properties:
+        id:
+          type: string
+          description: UUID
+        airplaneType:
+          $ref: '#/components/schemas/AirplaneType'
+    Passenger:
+      type: object
+      properties:
+        firstName:
+          type: string
+        lastName:
+          type: string
+        gender:
+          type: string
+        address:
+          type: string
+    BookingPayment:
+      type: object
+      properties:
+        stripeId:
+          type: string
+        refunded:
+          type: boolean
+    Booking:
+      type: object
+      properties:
+        id:
+          type: string
+          description: UUID
+        active:
+          type: boolean
+        confirmationCode:
+          type: string
+        passenger:
+          $ref: '#/components/schemas/Passenger'
+        payment:
+          $ref: '#/components/schemas/BookingPayment'
+        flight:
+          $ref: '#/components/schemas/Flight'
+        user:
+          $ref: '#/components/schemas/User'
+    Route:
+      type: object
+      properties:
+        id:
+          type: string
+          description: UUID
+        originAirport:
+          $ref: '#/components/schemas/Airport'
+        destinationAirport:
+          $ref: '#/components/schemas/Airport'
+    Flight:
+      type: object
+      properties:
+        id:
+          type: string
+          description: UUID
+        route:
+          $ref: '#/components/schemas/Route'
+        airplane:
+          $ref: '#/components/schemas/Airplane'
+        departureTime:
+          type: string
+          format: date-time
+        reservedSeats:
+          type: integer
+          format: int32
+        seatPrice:
+          type: number
+          format: float
+paths:
+  /booking:
+    get:
+      operationId: getBookings
+      description: get all bookings belonging to authenticated user
+      parameters:
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          required: true
+      responses:
+        200:
+          description: list of bookings
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Booking'
+        400:
+          description: failed
+    put:
+      operationId: addBooking
+      description: add booking to user
+      parameters:
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          required: true
+      requestBody:
+        required: true
+        description: Booking to add
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Booking'
+      responses:
+        200:
+          description: added
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Booking'
+        400:
+          description: failed
+    post:
+      operationId: cancelBooking
+      description: cancel booking
+      parameters:
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          required: true
+      requestBody:
+        required: true
+        description: Booking to cancel, only id necessary
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Booking'
+      responses:
+        200:
+          description: succeeded
+        400:
+          description: failed
+
+  /flight:
+    get:
+      operationId: getAllFlights
+      description: get all flights
+      parameters:
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          required: true
+      responses:
+        200:
+          description: list of flights
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Flight'
+        400:
+          description: failed
